@@ -103,6 +103,11 @@ h3 {
   color: #666;
 }
 
+.players {
+  overflow-y: scroll;
+  max-height: 295px;
+}
+
 .player {
   display: flex;
   font-size: 1.2em;
