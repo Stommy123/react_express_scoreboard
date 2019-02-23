@@ -12,14 +12,17 @@ class App extends Component {
   async componentDidMount() {
     const { data } = await axios.get("/characters");
     const { players } = this.state;
-    const parsedCharacters = data.results.map(({ name }, i) => ({
-      id: players.length + i,
-      name,
-      age: Math.ceil(Math.random() * 30),
-      score: 0
-    }));
-    const additionalPlayers = [...players, ...parsedCharacters];
-    this.setState({ players: additionalPlayers });
+    const playersArray = players;
+    data.results.forEach(({ name }, i) => {
+      const parsedPlayer = {
+        id: playersArray.length,
+        name,
+        age: Math.ceil(Math.random() * 18),
+        score: Math.ceil(Math.random() * 10)
+      };
+      playersArray.push(parsedPlayer);
+    });
+    this.setState({ players: playersArray });
   }
   addPlayer = ({ name, age }) => {
     const { players } = this.state;
