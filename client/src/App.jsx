@@ -32,7 +32,7 @@ class App extends Component {
       age,
       score: 0
     };
-    const newPlayerList = [...players, newPlayer];
+    const newPlayerList = [newPlayer, ...players];
     this.setState({ players: newPlayerList });
   };
 
