@@ -3,6 +3,7 @@ import React from "react";
 const Counter = ({ id, score, updatePlayerScore }) => (
   <div className="counter">
     <button
+      disabled={score === 0}
       className="counter-action decrement"
       onClick={_ => updatePlayerScore(id, -1)}
     >
