@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { data } from './data';
-import Header from './components/Header';
-import Players from './components/Players';
-import Form from './components/Form';
-import PlayerDetail from './components/PlayerDetail';
+import { Header, Players, Form, PlayerDetail } from './components';
 
 class App extends Component {
   state = { players: data, selectedPlayerIndex: -1 };
