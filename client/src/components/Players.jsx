@@ -1,13 +1,7 @@
-import React from "react";
-import Player from "./Player";
+import React from 'react';
+import Player from './Player';
 
-const Players = ({
-  players,
-  removePlayer,
-  updatePlayerScore,
-  selectPlayer,
-  highScore
-}) => (
+const Players = ({ players, removePlayer, updatePlayerScore, selectPlayer, highScore }) => (
   <div className="players">
     {players.map(player => (
       <Player

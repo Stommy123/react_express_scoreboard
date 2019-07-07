@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Form extends Component {
   state = { name: String(), age: String() };
@@ -17,18 +17,8 @@ class Form extends Component {
     return (
       <div className="add-player-form">
         <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            value={name}
-            onChange={this.handleInputChange("name")}
-            placeholder="Player Name"
-          />
-          <input
-            type="text"
-            value={age}
-            onChange={this.handleInputChange("age")}
-            placeholder="Player Age"
-          />
+          <input type="text" value={name} onChange={this.handleInputChange('name')} placeholder="Player Name" />
+          <input type="text" value={age} onChange={this.handleInputChange('age')} placeholder="Player Age" />
           <input type="submit" value="Add Player" />
         </form>
       </div>

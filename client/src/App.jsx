@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { data } from "./data";
-import Header from "./components/Header";
-import Players from "./components/Players";
-import Form from "./components/Form";
-import PlayerDetail from "./components/PlayerDetail";
+import React, { Component } from 'react';
+import axios from 'axios';
+import { data } from './data';
+import Header from './components/Header';
+import Players from './components/Players';
+import Form from './components/Form';
+import PlayerDetail from './components/PlayerDetail';
 
 class App extends Component {
   state = { players: data, selectedPlayerIndex: -1 };
 
   async componentDidMount() {
-    const { data } = await axios.get("/characters");
+    const { data } = await axios.get('/characters');
     const { players } = this.state;
     const playersArray = players;
     data.results.forEach(({ name }, i) => {
@@ -64,8 +64,7 @@ class App extends Component {
     const highScore = this.getHighScore();
     const playerCount = players.length;
     const totalPoints = players.reduce((acc, player) => acc + player.score, 0);
-    const selectedPlayer =
-      selectedPlayerIndex !== -1 && players[selectedPlayerIndex];
+    const selectedPlayer = selectedPlayerIndex !== -1 && players[selectedPlayerIndex];
     return (
       <div className="scoreboard">
         <Header totalPoints={totalPoints} playerCount={playerCount} />

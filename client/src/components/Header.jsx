@@ -1,6 +1,6 @@
-import React from "react";
-import Stats from "./Stats";
-import Stopwatch from "./Stopwatch";
+import React from 'react';
+import Stats from './Stats';
+import Stopwatch from './Stopwatch';
 
 const Header = ({ playerCount, totalPoints }) => (
   <div className="header">

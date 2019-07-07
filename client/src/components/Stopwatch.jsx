@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Stopwatch extends Component {
   state = {
@@ -41,9 +41,7 @@ class Stopwatch extends Component {
       <div className="stopwatch">
         <h2>Stopwatch</h2>
         <span className="stopwatch-time">{seconds}</span>
-        <button onClick={this.handleStopwatch}>
-          {isRunning ? "Stop" : "Start"}
-        </button>
+        <button onClick={this.handleStopwatch}>{isRunning ? 'Stop' : 'Start'}</button>
         <button onClick={this.handleReset}>Reset</button>
       </div>
     );
