@@ -2,7 +2,7 @@ import React from 'react';
 import { Player } from '.';
 
 const Players = ({ players, removePlayer, updatePlayerScore, selectPlayer, highScore }) => (
-  <div className="players">
+  <div className='players'>
     {players.map(player => (
       <Player
         key={player.name}

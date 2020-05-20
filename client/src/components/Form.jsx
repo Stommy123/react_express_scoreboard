@@ -1,29 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class Form extends Component {
-  state = { name: String(), age: String() };
+const INITIAL_FORM_DATA = { name: '', age: '' };
 
-  handleInputChange = field => e => this.setState({ [field]: e.target.value });
+const Form = ({ onSubmit }) => {
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
-  handleSubmit = e => {
+  const handleInputChange = field => e => setFormData({ ...formData, [field]: e.target.value });
+
+  const handleSubmit = e => {
     e.preventDefault();
-    const { name, age } = this.state;
-    const newPlayer = { name, age };
-    this.props.addPlayer(newPlayer);
-    this.setState({ name: String(), age: String() });
+
+    onSubmit(formData);
+
+    setFormData(INITIAL_FORM_DATA);
   };
-  render() {
-    const { name, age } = this.state;
-    return (
-      <div className="add-player-form">
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" value={name} onChange={this.handleInputChange('name')} placeholder="Player Name" />
-          <input type="text" value={age} onChange={this.handleInputChange('age')} placeholder="Player Age" />
-          <input type="submit" value="Add Player" />
-        </form>
-      </div>
-    );
-  }
-}
+
+  return (
+    <div className='add-player-form'>
+      <form onSubmit={handleSubmit}>
+        <input type='text' value={formData.name} onChange={handleInputChange('name')} placeholder='Player Name' />
+        <input type='text' value={formData.age} onChange={handleInputChange('age')} placeholder='Player Age' />
+        <input type='submit' value='Add Player' />
+      </form>
+    </div>
+  );
+};
 
 export default Form;

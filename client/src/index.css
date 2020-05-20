@@ -194,7 +194,7 @@ h3 {
   background-color: #222;
 }
 
-.add-player-form input[type="text"] {
+.add-player-form input[type='text'] {
   flex-grow: 1;
   border-width: 0 0 1px 0;
   margin: 15px 10px 15px 15px;
@@ -209,16 +209,16 @@ h3 {
   outline: none;
 }
 
-.add-player-form input[type="text"]::-webkit-input-placeholder {
+.add-player-form input[type='text']::-webkit-input-placeholder {
   color: #666;
   letter-spacing: 2px;
 }
 
-.add-player-form input[type="text"]:focus {
+.add-player-form input[type='text']:focus {
   background-color: #444;
 }
 
-.add-player-form input[type="submit"] {
+.add-player-form input[type='submit'] {
   display: block;
   font-size: 0.6em;
   margin: 15px 15px 15px 0;
@@ -233,7 +233,7 @@ h3 {
   text-transform: uppercase;
 }
 
-.add-player-form input[type="submit"]:hover {
+.add-player-form input[type='submit']:hover {
   background: #4b71b5;
   color: #fafafa;
   cursor: pointer;

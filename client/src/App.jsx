@@ -1,82 +1,75 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { v4 as uuid } from 'uuid';
 import axios from 'axios';
 import { data } from './data';
 import { Header, Players, Form, PlayerDetail } from './components';
 
-class App extends Component {
-  state = { players: data, selectedPlayerIndex: -1 };
+const App = _ => {
+  const [players, setPlayers] = useState(data);
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
 
-  async componentDidMount() {
-    const { data } = await axios.get('/characters');
-    const { players } = this.state;
-    const playersArray = players;
-    data.results.forEach(({ name }, i) => {
-      const parsedPlayer = {
-        id: playersArray.length,
-        name,
-        age: Math.ceil(Math.random() * 18),
-        score: Math.ceil(Math.random() * 10)
-      };
-      playersArray.push(parsedPlayer);
-    });
-    this.setState({ players: playersArray });
-  }
-  addPlayer = ({ name, age }) => {
-    const { players } = this.state;
-    const newPlayer = {
-      id: players.length,
-      name,
-      age,
-      score: 0
-    };
-    const newPlayerList = [newPlayer, ...players];
-    this.setState({ players: newPlayerList });
+  const fetchMorePlayers = async _ => {
+    const { data } = await axios.get('/people');
+
+    setPlayers([...players, ...data.people]);
   };
 
-  removePlayer = id => {
-    const { players } = this.state;
+  const handleAddPlayer = playerData => {
+    const newPlayer = { ...playerData, id: uuid(), score: 0 };
+
+    setPlayers([...players, newPlayer]);
+  };
+
+  const handleRemovePlayer = id => e => {
+    e.stopPropagation();
     const filteredPlayerList = players.filter(player => player.id !== id);
-    this.setState({ players: filteredPlayerList });
+    if (selectedPlayer && selectedPlayer.id === id) setSelectedPlayer(null);
+    setPlayers(filteredPlayerList);
   };
 
-  selectPlayer = id => this.setState({ selectedPlayerIndex: id });
+  const handleSelectPlayer = player => _ => setSelectedPlayer(player);
 
-  updatePlayerScore = (id, change) => {
-    const { players } = this.state;
-    const updatedPlayerList = players.map(player =>
-      player.id === id ? { ...player, score: (player.score += change) } : player
+  const handleUpdatePlayerScore = (id, delta) => _ => {
+    const updatedPlayers = players.map(player =>
+      player.id === id ? { ...player, score: (player.score += delta) } : player
     );
-    this.setState({ players: updatedPlayerList });
+
+    setPlayers(updatedPlayers);
   };
 
-  getHighScore = _ => {
-    const { players } = this.state;
-    const scores = players.map(player => player.score);
-    const highScore = Math.max(...scores);
-    if (highScore) return highScore;
-  };
+  useEffect(_ => {
+    fetchMorePlayers();
+  }, []);
 
-  render() {
-    const { players, selectedPlayerIndex } = this.state;
-    const highScore = this.getHighScore();
-    const playerCount = players.length;
-    const totalPoints = players.reduce((acc, player) => acc + player.score, 0);
-    const selectedPlayer = selectedPlayerIndex !== -1 && players[selectedPlayerIndex];
-    return (
-      <div className="scoreboard">
-        <Header totalPoints={totalPoints} playerCount={playerCount} />
-        <Players
-          players={players}
-          removePlayer={this.removePlayer}
-          updatePlayerScore={this.updatePlayerScore}
-          selectPlayer={this.selectPlayer}
-          highScore={highScore}
-        />
-        <Form addPlayer={this.addPlayer} />
-        <PlayerDetail selectedPlayer={selectedPlayer} />
-      </div>
-    );
-  }
-}
+  const highScore = useMemo(
+    _ => {
+      const scores = players.map(({ score }) => score);
+
+      const highScore = Math.max(...scores);
+
+      return highScore;
+    },
+    [players]
+  );
+
+  const totalPoints = useMemo(_ => players.reduce((acc, { score }) => acc + score, 0), [players]);
+
+  const playerCount = players.length;
+
+  return (
+    <div className='scoreboard'>
+      <Header totalPoints={totalPoints} playerCount={playerCount} />
+      <Players
+        players={players}
+        removePlayer={handleRemovePlayer}
+        updatePlayerScore={handleUpdatePlayerScore}
+        selectPlayer={handleSelectPlayer}
+        highScore={highScore}
+      />
+      <Form onSubmit={handleAddPlayer} />
+      <PlayerDetail selectedPlayer={selectedPlayer} />
+    </div>
+  );
+};
 
 export default App;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Stats = ({ playerCount, totalPoints }) => (
-  <table className="stats">
+  <table className='stats'>
     <tbody>
       <tr>
         <td>Player:</td>

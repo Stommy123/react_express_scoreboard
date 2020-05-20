@@ -1,12 +1,12 @@
 import React from 'react';
 
 const Counter = ({ id, score, updatePlayerScore }) => (
-  <div className="counter">
-    <button disabled={score === 0} className="counter-action decrement" onClick={_ => updatePlayerScore(id, -1)}>
+  <div className='counter'>
+    <button disabled={score === 0} className='counter-action decrement' onClick={updatePlayerScore(id, -1)}>
       -
     </button>
-    <div className="counter-score">{score}</div>
-    <button className="counter-action increment" onClick={_ => updatePlayerScore(id, 1)}>
+    <div className='counter-score'>{score}</div>
+    <button className='counter-action increment' onClick={updatePlayerScore(id, 1)}>
       +
     </button>
   </div>

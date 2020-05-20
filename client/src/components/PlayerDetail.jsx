@@ -2,7 +2,7 @@ import React from 'react';
 
 const PlayerDetail = ({ selectedPlayer }) =>
   selectedPlayer ? (
-    <div className="player-detail">
+    <div className='player-detail'>
       <h3>{selectedPlayer.name}</h3>
       <ul>
         <li>
@@ -16,7 +16,7 @@ const PlayerDetail = ({ selectedPlayer }) =>
       </ul>
     </div>
   ) : (
-    <div className="player-detail">
+    <div className='player-detail'>
       <p>Click on a player to see more details</p>
     </div>
   );
